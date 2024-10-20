@@ -35,3 +35,9 @@ def edit(request,pk):
     context={'form':form ,'note':note}
     return render(request,'notes/noteEdit.html',context)
 
+def deleteNote(request,pk):
+    note=Notes.objects.get(pk=pk)
+    if request.method=='POST':
+        note.delete()
+        return redirect('notes.list')
+    return render(request,'notes/noteDelete.html')

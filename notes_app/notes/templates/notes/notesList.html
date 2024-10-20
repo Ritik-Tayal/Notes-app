@@ -16,6 +16,7 @@
         <li style="color: red; text-align:center">{{note.title}}</li>
         <a href="{% url 'notes.detail' pk=note.id %}">View Note</a>
         <a href="{% url 'notes.edit' pk=note.id %}">Edit Note</a>
+        <a href="{% url 'notes.delete' pk=note.id %}">Delete Note</a>
         {% endfor %}
     </ul>
 
