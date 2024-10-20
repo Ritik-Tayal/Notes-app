@@ -7,10 +7,15 @@
 </head>
 <body>
     <h3>These are your Notes</h3>
+    <br><br>
+    <a href="{% url 'notes.new' %}">Create a new note</a>
+
+    <br>
     <ul>
         {% for note in notes %}
         <li style="color: red; text-align:center">{{note.title}}</li>
         <a href="{% url 'notes.detail' pk=note.id %}">View Note</a>
+        <a href="{% url 'notes.edit' pk=note.id %}">Edit Note</a>
         {% endfor %}
     </ul>
 
