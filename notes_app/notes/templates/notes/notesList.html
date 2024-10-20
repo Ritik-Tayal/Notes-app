@@ -9,7 +9,8 @@
     <h3>These are your Notes</h3>
     <ul>
         {% for note in notes %}
-        <li>{{note.title}}</li>
+        <li style="color: red; text-align:center">{{note.title}}</li>
+        <a href="{% url 'notes.detail' pk=note.id %}">View Note</a>
         {% endfor %}
     </ul>
 

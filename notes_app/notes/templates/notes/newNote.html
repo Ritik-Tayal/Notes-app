@@ -6,9 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>
-        Notes App
-    </h1>
-    <a href="{% url 'notes.list' %}">Go to your notes</a>
+    <form action="{% url 'notes.new' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="submit">
+    </form>
+
 </body>
 </html>
