@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
 def list(request):
-    all_notes=Notes.objects.all()
+    all_notes=Notes.objects.filter(user=request.user)
     return render(request,'notes/notesList.html',{'notes': all_notes})
 
 @login_required(login_url='login')

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -10,6 +11,11 @@ class SignupView(CreateView):
     form_class=UserCreationForm
     template_name='home/signup.html'
     success_url='user/notes'
+    
+    def get(self,request,*args,**kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('user/notes')
+        return super().get(request,*args,**kwargs)
 
 class LoginInterfaceView(LoginView):
     template_name='home/login.html'
