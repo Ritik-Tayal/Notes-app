@@ -6,14 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-
-    <form method="POST" action="{% url 'logout' %}">
+    <form action="" method="POST">
         {% csrf_token %}
-        <button type="submit">Logout</button>
+        {{form.as_p}}
+        <input type="submit" value="Login">
     </form>
-    <h1>
-        Notes App
-    </h1>
-    <a href="{% url 'notes.list' %}">Go to your notes</a>
 </body>
 </html>
