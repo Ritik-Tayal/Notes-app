@@ -3,28 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your Notes - Notes App</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        nav button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #c9302c;
+        }
+
+        /* Header */
+        h3 {
+            margin: 20px 0;
+            font-size: 2rem;
+            color: #4CAF50;
+        }
+
+        /* Create Note Link */
+        a.create-note {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        a.create-note:hover {
+            background-color: #45a049;
+        }
+
+        /* Notes Container */
+        .notes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px; /* Space between cards */
+            max-width: 1200px; /* Limiting container width */
+        }
+
+        /* Note Card */
+        .note-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            width: 350px; /* Bigger width for larger cards */
+            height: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .note-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .note-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .note-card h6 {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .note-functions {
+            display: flex;
+            justify-content: space-around; /* Spread out the links evenly */
+            margin-top: 10px; /* Space above the function links */
+        }
+
+        .note-card a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .note-card a:hover {
+            color: #333;
+        }
+    </style>
 </head>
 <body>
+
     <nav>
         <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
     </nav>
-    <h3>These are your Notes</h3>
-    <br><br>
-    <a href="{% url 'notes.new' %}">Create a new note</a>
 
-    <br>
-    <ul style="text-align:center">
+    <h3>These are your Notes</h3>
+    
+    <a href="{% url 'notes.new' %}" class="create-note">Create a new note</a>
+
+    <div class="notes-container">
         {% for note in notes %}
-        <li style="color: red; text-align:center; margin:10px">{{note.title}}</li>
-        <a href="{% url 'notes.detail' pk=note.id %}">View Note</a>
-        <a href="{% url 'notes.edit' pk=note.id %}">Edit Note</a>
-        <a href="{% url 'notes.delete' pk=note.id %}">Delete Note</a>
+        <div class="note-card">
+            <h4>{{ note.title }}</h4>
+            <h6>{{note.text|truncatechars:10}}</h6> <!-- Display a portion of the note's text -->
+            <div class="note-functions">
+                <a href="{% url 'notes.detail' pk=note.id %}">View</a>
+                <a href="{% url 'notes.edit' pk=note.id %}">Edit</a>
+                <a href="{% url 'notes.delete' pk=note.id %}">Delete</a>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 
 </body>
 </html>
