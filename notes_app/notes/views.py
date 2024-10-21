@@ -22,6 +22,9 @@ def create(request):
     if request.method=='POST':
         form=NoteForm(request.POST)
         if form.is_valid():
+            note=form.save(commit=False)
+            note.user=request.user
+            note.save()
             form.save()
             return redirect('notes.list')
             

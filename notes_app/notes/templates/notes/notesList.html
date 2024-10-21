@@ -6,14 +6,20 @@
     <title>Document</title>
 </head>
 <body>
+    <nav>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </nav>
     <h3>These are your Notes</h3>
     <br><br>
     <a href="{% url 'notes.new' %}">Create a new note</a>
 
     <br>
-    <ul>
+    <ul style="text-align:center">
         {% for note in notes %}
-        <li style="color: red; text-align:center">{{note.title}}</li>
+        <li style="color: red; text-align:center; margin:10px">{{note.title}}</li>
         <a href="{% url 'notes.detail' pk=note.id %}">View Note</a>
         <a href="{% url 'notes.edit' pk=note.id %}">Edit Note</a>
         <a href="{% url 'notes.delete' pk=note.id %}">Delete Note</a>
