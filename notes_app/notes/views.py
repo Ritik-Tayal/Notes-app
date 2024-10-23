@@ -2,13 +2,17 @@ from django.shortcuts import render,redirect
 from .models import Notes
 from .forms import NoteForm
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 # Create your views here.
 
 
 @login_required(login_url='login')
 def list(request):
-    all_notes=Notes.objects.filter(user=request.user)
+    query=request.GET.get('q')
+    if query:
+        all_notes=Notes.objects.filter(Q(title__icontains=query) | Q(text__icontains=query),user=request.user)
+    else:
+        all_notes=Notes.objects.filter(user=request.user)
     return render(request,'notes/notesList.html',{'notes': all_notes})
 
 @login_required(login_url='login')

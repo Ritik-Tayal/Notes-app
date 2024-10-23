@@ -132,6 +132,11 @@
         </form>
     </nav>
 
+    <form method="GET" action="{% url 'notes.list' %}">
+        <input type="text" name="q" placeholder="Search notes...">
+        <input type="submit" value="Search">
+    </form>
+
     <h3>These are your Notes</h3>
     
     <a href="{% url 'notes.new' %}" class="create-note">Create a new note</a>
